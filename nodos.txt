@@ -1,0 +1,21 @@
+¿Cómo construir un sistema experto?
+
+1)Identificar "Objetos" Tipos de virus, tipos de bacterias.
+2)Identificar los atributos de cada objeto. Forma, estructura, síntomas que provoca.
+3)Valores de los atributos que definen un determinado objeto.
+
+Fuentes de conocimiento 
+
+A)Humano
+B)Máquina: Machine Learning utilizando datos de experiencias previas.
+	Casos confirmados, casos sospechosos, curados, defunciones, descartados.
+C)
+
+En experiencias humanas hay que definir 3 tipos de nodos.
+-Nodos cuadrados: Valores de los atributos mediante preguntas.
+	Fiebre, Flujo nasal, Tos, Viaje a España, Italia, USA, China.
+	Valores en las ramas.
+
+-Nodos redondos: Conclusiones.
+
+-Nodos 
