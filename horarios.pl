@@ -73,17 +73,17 @@ clase(seguridad,martes,10,12).
 /*	Reglas */
 
 traslape(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)):-
-                            clase(Materia1, Dia1, _, Fin1),
-                            clase(Materia2, Dia2, Inicio2, _),
+                            clase(Materia1, Dia1, Inicio1, Fin1),
+                            clase(Materia2, Dia2, Inicio2, Fin2),
                             Materia1 \== Materia2,
-                            Inicio2 > Fin1,
+                            Inicio2 >= Fin1,
                             Dia1 == Dia2.
 
 traslapeDistintoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)):- 
                             clase(Materia1, Dia1, Inicio1, Fin1),
                             clase(Materia2, Dia2, Inicio2, Fin2),
                             Materia1 \== Materia2,
-                            Inicio1 == Inicio2,
+                            Fin1 >= Inicio2,
                             Dia1 \== Dia2.
 
 inscribeMismoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2), clase(Materia3,Dia3,Inicio3,Fin3)):-
