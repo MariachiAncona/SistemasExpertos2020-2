@@ -72,33 +72,36 @@ clase(seguridad,martes,10,12).
 
 /*	Reglas */
 
-traslape(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)):-
-                            clase(Materia1, Dia1, Inicio1, Fin1),
-                            clase(Materia2, Dia2, Inicio2, Fin2),
-                            Materia1 \== Materia2,
-                            Inicio2 >= Fin1,
+mismoDia(clase(_,Dia1,_,_), clase(_,Dia2,_,_)):-
                             Dia1 == Dia2.
 
-traslapeDistintoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)):- 
+mismaMateria(clase(Materia1,_,_,_), clase(Materia2,_,_,_)):-
+                            Materia1 == Materia2.
+
+sinTraslape(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)):-
                             clase(Materia1, Dia1, Inicio1, Fin1),
                             clase(Materia2, Dia2, Inicio2, Fin2),
-                            Materia1 \== Materia2,
-                            Fin1 >= Inicio2,
-                            Dia1 \== Dia2.
+                            mismoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)),
+                            not(mismaMateria(clase(Materia1,_,_,_), clase(Materia2,_,_,_))),
+                            Inicio2 >= Fin1.
 
-inscribeMismoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2), clase(Materia3,Dia3,Inicio3,Fin3)):-
-                            traslape(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)),
-                            traslape(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia3,Dia3,Inicio3,Fin3)),
-                            traslape(clase(Materia2,Dia2,Inicio2,Fin2), clase(Materia3,Dia3,Inicio3,Fin3)).
+sinTraslapeDistintoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)):- 
+                            clase(Materia1, Dia1, Inicio1, Fin1),
+                            clase(Materia2, Dia2, Inicio2, Fin2),
+                            not(mismaMateria(clase(Materia1,_,_,_), clase(Materia2,_,_,_))),
+                            not(mismoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2))).
 
-inscribeDistintoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2), clase(Materia3,Dia3,Inicio3,Fin3)):-
-                            traslapeDistintoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)),
-                            traslapeDistintoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia3,Dia3,Inicio3,Fin3)),
-                            traslapeDistintoDia(clase(Materia2,Dia2,Inicio2,Fin2), clase(Materia3,Dia3,Inicio3,Fin3)).
+inscribeMismoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)):-
+                            sinTraslape(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)),
+                            sinTraslape(clase(Materia2,Dia2,Inicio2,Fin2), clase(Materia1,Dia1,Inicio1,Fin1)).
 
-inscribe(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2), clase(Materia3,Dia3,Inicio3,Fin3)):-
-                            inscribeMismoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2), clase(Materia3,Dia3,Inicio3,Fin3));
-                            inscribeDistintoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2), clase(Materia3,Dia3,Inicio3,Fin3)).
+inscribeDistintoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)):-
+                            sinTraslapeDistintoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)),
+                            sinTraslapeDistintoDia(clase(Materia2,Dia2,Inicio2,Fin2), clase(Materia1,Dia1,Inicio1,Fin1)).
+
+inscribe(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)):-
+                            inscribeMismoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2));
+                            inscribeDistintoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)).
 
 
 
