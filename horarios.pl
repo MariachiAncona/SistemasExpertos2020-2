@@ -108,6 +108,14 @@ inscribe(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)):-
                             inscribeMismoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2));
                             inscribeDistintoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)).
 
+combinaInscripciones(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)):-
+                            inscribe(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2));
+                            inscribeDistintoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)).
+
+creaHorario(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2), clase(Materia3,Dia3,Inicio3,Fin3)):-
+                            combinaInscripciones(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)),
+                            combinaInscripciones(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia3,Dia3,Inicio3,Fin3)),
+                            combinaInscripciones(clase(Materia2,Dia2,Inicio2,Fin2), clase(Materia3,Dia3,Inicio3,Fin3)).
 
 
                             
