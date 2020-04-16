@@ -78,12 +78,17 @@ mismoDia(clase(_,Dia1,_,_), clase(_,Dia2,_,_)):-
 mismaMateria(clase(Materia1,_,_,_), clase(Materia2,_,_,_)):-
                             Materia1 == Materia2.
 
+sinTraslapeHora(clase(_,_,Inicio1,Fin1), clase(_,_,Inicio2,Fin2)):-
+                            Inicio2 >= Fin1;
+                            Inicio1 >= Fin2.
+                            
+
 sinTraslape(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)):-
                             clase(Materia1, Dia1, Inicio1, Fin1),
                             clase(Materia2, Dia2, Inicio2, Fin2),
                             mismoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)),
                             not(mismaMateria(clase(Materia1,_,_,_), clase(Materia2,_,_,_))),
-                            Inicio2 >= Fin1.
+                            sinTraslapeHora(clase(_,_,Inicio1,Fin1), clase(_,_,Inicio2,Fin2)).
 
 sinTraslapeDistintoDia(clase(Materia1,Dia1,Inicio1,Fin1), clase(Materia2,Dia2,Inicio2,Fin2)):- 
                             clase(Materia1, Dia1, Inicio1, Fin1),
