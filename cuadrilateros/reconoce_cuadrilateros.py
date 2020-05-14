@@ -33,7 +33,7 @@ class Ui_MainWindow(object):
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
         self.showLabel = QtWidgets.QLabel(self.gridLayoutWidget)
-        self.showLabel.setText("¿Quieres jugar?")
+        self.showLabel.setText("¿Todos sus lados son diferentes?")
         self.showLabel.setObjectName("showLabel")
         self.gridLayout.addWidget(self.showLabel, 0, 0, 1, 1)
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -57,73 +57,57 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "MiniSE"))
         self.noButton.setText(_translate("MainWindow", "No"))
         self.siButton.setText(_translate("MainWindow", "Si"))
         self.label.setText(_translate("MainWindow", "Reconoce Cuadriláteros"))
 
-    def changeText(self):
-        lista_preguntas=["¿Todos sus lados son diferentes?","¿Solo tiene un par de lados paralelos?","¿Todos sus lados son iguales?","¿Todos sus ángulos son iguales?","Todos sus ángulos son rectos?"]
-        self.showLabel.setText(lista_preguntas[self.contador_pregunta])
+    def changeText(self,aumento,cadena):
+        self.contador_pregunta = self.contador_pregunta + aumento
+        self.showLabel.setText(cadena)
 
 
-    def changeTextString(self,num_respuesta):
-        respuesta=["Irregular","Trapezoide","Cuadrado","Rombo","Rectángulo","Romboide","Adiós!!"]
-        self.showLabel.setText(respuesta[num_respuesta])
+    def changeTextAnswer(self,respuesta):
+        self.showLabel.setText(respuesta)
         self.siButton.setEnabled(False)
         self.noButton.setEnabled(False)
 
     def yesAction(self):
-        self.changeText()
 
         if self.contador_pregunta == 0:
-            self.contador_pregunta = self.contador_pregunta + 1
+            self.changeTextAnswer("Irregular")
             return
         elif self.contador_pregunta == 1:
-            self.changeTextString(0)
+            self.changeTextAnswer("Trapezoide")
             return
         elif self.contador_pregunta == 2:
-            self.changeTextString(1)
+            self.changeText(1,"¿Todos sus ángulos son iguales?")
             return
         elif self.contador_pregunta == 3:
-            self.changeText()
-            self.contador_pregunta = self.contador_pregunta + 1
+            self.changeTextAnswer("Cuadrado")
             return
         elif self.contador_pregunta == 4:
-            self.changeTextString(2)
+            self.changeTextAnswer("Rectángulo")
             return
-        elif self.contador_pregunta == 5:
-            self.changeTextString(4)
-            return
-            
-
 
     def noAction(self):
         
         if self.contador_pregunta == 0:
-            self.changeTextString(6)
+            self.changeText(1,"¿Solo tiene un par de lados paralelos?")
             return
         elif self.contador_pregunta == 1:
-            self.changeText()
-            self.contador_pregunta = self.contador_pregunta + 1
+            self.changeText(1,"¿Todos sus lados son iguales?")
             return
         elif self.contador_pregunta == 2:
-            self.changeText()
-            self.contador_pregunta = self.contador_pregunta + 1
+            self.changeText(2,"¿Todos sus ángulos son rectos?")
             return
         elif self.contador_pregunta == 3:
-            self.changeText()
-            self.contador_pregunta = self.contador_pregunta + 2
+            self.changeTextAnswer("Rombo")
             return
         elif self.contador_pregunta == 4:
-            self.changeTextString(3)
-            return
-        elif self.contador_pregunta == 5:
-            self.changeTextString(5)
+            self.changeTextAnswer("Romboide")
             return
         
-
-
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
@@ -132,4 +116,3 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
-
